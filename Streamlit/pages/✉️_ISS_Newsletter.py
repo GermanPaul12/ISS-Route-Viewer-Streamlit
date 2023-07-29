@@ -33,11 +33,14 @@ def save_email_to_database(email):
     # URL of the ISS image (Replace with the actual URL of the ISS image)
     iss_image_url = "https://raw.githubusercontent.com/GermanPaul12/ISS-Route-Viewer-Streamlit/main/Data/iss.jpg"
 
-    # Function to convert the image to a data URI
-    def image_to_data_uri(url):
+    # Function to download the image and get its content type
+    def get_image_content_type(url):
         response = requests.get(url)
-        image_data = base64.b64encode(response.content).decode("utf-8")
-        return f"data:image/jpg;base64,{image_data}"
+        content_type = response.headers["content-type"]
+        return content_type, response.content
+
+    # Get the content type and content of the image
+    image_content_type, image_content = get_image_content_type(iss_image_url)
 
     # Create the HTML content for the email
     html_content = f"""
@@ -45,7 +48,7 @@ def save_email_to_database(email):
     <html>
     <head>
     </head>
-    <body style="font-family: 'Arial', sans-serif; color: #333333; margin: 0; padding: 0; background-color: rgba(192, 192, 192, 0.9); background-image: url('data:image/jpg;base64,{image_to_data_uri(iss_image_url)}'); background-size: cover; background-repeat: no-repeat;">
+    <body style="font-family: 'Arial', sans-serif; color: #333333; margin: 0; padding: 0; background-color: rgba(192, 192, 192, 0.9);">
         <div style="background-color: rgba(0, 0, 0, 0.8); color: white; padding: 20px; text-align: center; font-size: 24px;">Hey there,</div>
         <div style="background-color: rgba(255, 255, 255, 0.8); padding: 20px;">
             <p style="font-size: 16px;">Thanks for signing up to the newsletter.</p>
@@ -57,6 +60,7 @@ def save_email_to_database(email):
         <div style="background-color: rgba(255, 255, 255, 0.8); color: #333333; padding: 10px; text-align: center; font-size: 12px;">
             <p style="margin: 0; color: #888888;">Remove yourself from the Newsletter: <a href="https://iss-route.streamlit.app/ISS_Newsletter" style="color: #007BFF; text-decoration: none;">Unsubscribe</a></p>
         </div>
+        <img src="cid:iss_image" alt="ISS Above Mannheim" width="100%" style="display: block;">
     </body>
     </html>
     """
