@@ -14,6 +14,19 @@ def save_email_to_database(email):
 def add_email(tx, email):
     tx.run("CREATE (e:Email {email: $email})", email=email)
 
+# Function to remove an email from the Neo4j database
+def remove_email(email):
+    neo4j_uri = st.secrets["NEO_URI"]
+    neo4j_user = st.secrets["NEO_USER"]
+    neo4j_password = st.secrets["NEO_PW"]
+
+    with GraphDatabase.driver(neo4j_uri, auth=(neo4j_user, neo4j_password)) as driver:
+        with driver.session() as session:
+            session.write_transaction(delete_email, email)
+
+def delete_email(tx, email):
+    tx.run("MATCH (e:Email {email: $email}) DELETE e", email=email)
+
 def main():
     st.title("ISS Newsletter Sign-up")
     st.write("Subscribe to our newsletter to receive an email when the ISS is above Mannheim!")
@@ -29,6 +42,18 @@ def main():
             st.success("Thank you for subscribing! You will be notified when the ISS is above Mannheim.")
         else:
             st.warning("Please enter a valid email address.")
+            
+    # Option to remove an email
+    st.header("Remove Email")
+    remove_email_input = st.text_input("Enter email to remove:")
+
+    # Button to remove the email
+    if st.button("Remove Email"):
+        if remove_email_input:
+            remove_email(remove_email_input)
+            st.success(f"Email '{remove_email_input}' has been removed from the database.")
+        else:
+            st.warning("Please enter an email to remove.")       
 
 if __name__ == "__main__":
     main()
