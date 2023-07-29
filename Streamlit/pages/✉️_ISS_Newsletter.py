@@ -1,6 +1,7 @@
 import streamlit as st
 from neo4j import GraphDatabase
 import yagmail
+import base64
 
 neo4j_uri = st.secrets["NEO_URI"]
 neo4j_user = st.secrets["NEO_USER"]
@@ -28,13 +29,21 @@ def save_email_to_database(email):
             session.write_transaction(add_email, email)
 
     sender = yagmail.SMTP(GMAIL_MAIL, GMAIL_PW)
-     # Create the HTML content for the email
+   # URL of the ISS image (Replace with the actual URL of the ISS image)
+    iss_image_url = "https://raw.githubusercontent.com/GermanPaul12/ISS-Route-Viewer-Streamlit/main/Data/iss.jpg"
+
+    # Function to convert the image to a data URI
+    def image_to_data_uri(url):
+        with open(url, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode("utf-8")
+
+    # Create the HTML content for the email
     html_content = f"""
     <!DOCTYPE html>
     <html>
     <head>
     </head>
-    <body style="font-family: 'Arial', sans-serif; color: #333333; margin: 0; padding: 0; background-color: rgba(192, 192, 192, 0.9); background-image: url('https://raw.githubusercontent.com/GermanPaul12/ISS-Route-Viewer-Streamlit/main/Data/iss.jpg'); background-size: cover; background-repeat: no-repeat;">
+    <body style="font-family: 'Arial', sans-serif; color: #333333; margin: 0; padding: 0; background-color: rgba(192, 192, 192, 0.9); background-image: url('data:image/jpg;base64,{image_to_data_uri(iss_image_url)}'); background-size: cover; background-repeat: no-repeat;">
         <div style="background-color: rgba(0, 0, 0, 0.8); color: white; padding: 20px; text-align: center; font-size: 24px;">Hey there,</div>
         <div style="background-color: rgba(255, 255, 255, 0.8); padding: 20px;">
             <p style="font-size: 16px;">Thanks for signing up to the newsletter.</p>
