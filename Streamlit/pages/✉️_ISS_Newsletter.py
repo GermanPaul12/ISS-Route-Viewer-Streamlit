@@ -44,7 +44,7 @@ def save_email_to_database(email):
             <p style="font-size: 12px; color: #888888;">(ISS Mannheim Newsletter)</p>
         </div>
         <div style="background-color: rgba(255, 255, 255, 0.8); color: #333333; padding: 10px; text-align: center; font-size: 12px;">
-            <p style="margin: 0; color: #007BFF;">Remove yourself from the Newsletter: <a href="https://iss-route.streamlit.app/ISS_Newsletter" style="color: #007BFF; text-decoration: none;">Unsubscribe</a></p>
+            <p style="margin: 0; color: #888888;">Remove yourself from the Newsletter: <a href="https://iss-route.streamlit.app/ISS_Newsletter" style="color: #007BFF; text-decoration: none;">Unsubscribe</a></p>
         </div>
     </body>
     </html>
