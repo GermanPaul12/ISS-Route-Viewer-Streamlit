@@ -41,7 +41,7 @@ def is_iss_visible(time_str):
 st.title("ISS Points 📍 when it was able to see it from Mannheim 👀 with Stats 📊")
 
 # Read the CSV file into a DataFrame
-data = pd.read_csv("https://raw.githubusercontent.com/GermanPaul12/ISS-Route-Viewer-Replit-and-Streamlit/main/Data/iss_data.csv", names=["lat","lon","time"])
+data = pd.read_csv("https://raw.githubusercontent.com/GermanPaul12/ISS-Route-Viewer-Streamlit/main/Data/iss_data.csv", names=["lat","lon","time"])
 
 # Display the first few rows of the data
 st.dataframe(data.head())
