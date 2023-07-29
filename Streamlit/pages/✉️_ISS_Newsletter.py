@@ -72,8 +72,11 @@ def main():
     # Button to remove the email
     if st.button("Remove Email"):
         if remove_email_input:
-            remove_email(remove_email_input)
-            st.success(f"Email '{remove_email_input}' has been removed from the database.")
+            if remove_email_input not in read_emails():
+                st.warning("This email is not in the database.")
+            else:
+                remove_email(remove_email_input)
+                st.success(f"Email '{remove_email_input}' has been removed from the database.")
         else:
             st.warning("Please enter an email to remove.")       
 
