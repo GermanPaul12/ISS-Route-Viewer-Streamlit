@@ -1,16 +1,26 @@
 import streamlit as st
 from neo4j import GraphDatabase
+import yagmail
 
 # Function to save the email to the Neo4j database
 def save_email_to_database(email):
     neo4j_uri = st.secrets["NEO_URI"]
     neo4j_user = st.secrets["NEO_USER"]
     neo4j_password = st.secrets["NEO_PW"]
+    GMAIL_PW = st.secrets["GMAIL_PW"]
+    GMAIL_MAIL = st.secrets["GMAIL_MAIL"]
 
     with GraphDatabase.driver(neo4j_uri, auth=(neo4j_user, neo4j_password)) as driver:
         with driver.session() as session:
             session.write_transaction(add_email, email)
 
+    sender = yagmail.SMTP(GMAIL_MAIL, GMAIL_PW)
+    sender.send(to=email,
+                subject="The ISS Mannheim Newsletter 📍",
+                contents=
+                "Hey there,\n\nThanks for signing up to the newsletter.\nYou will be notified when the ISS is above Mannheim.\nBest regards\nGerman \n(ISS Mannheim Newsletter)\n\nRemove yourself from the Newsletter: https://iss-route.streamlit.app/ISS_Newsletter"
+                )
+    
 def add_email(tx, email):
     tx.run("CREATE (e:Email {email: $email})", email=email)
 
