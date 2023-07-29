@@ -28,10 +28,32 @@ def save_email_to_database(email):
             session.write_transaction(add_email, email)
 
     sender = yagmail.SMTP(GMAIL_MAIL, GMAIL_PW)
+     # Create the HTML content for the email
+    html_content = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+    </head>
+    <body style="font-family: 'Arial', sans-serif; color: #333333; margin: 0; padding: 0; background-image: url('https://raw.githubusercontent.com/GermanPaul12/ISS-Route-Viewer-Streamlit/main/Data/iss.jpg'); background-size: cover; background-repeat: no-repeat;">
+        <div style="background-color: rgba(0, 123, 255, 0.85); color: white; padding: 20px; text-align: center; font-size: 24px;">Hey there,</div>
+        <div style="background-color: rgba(255, 255, 255, 0.8); padding: 20px;">
+            <p style="font-size: 16px;">Thanks for signing up to the newsletter.</p>
+            <p style="font-size: 16px;">You will be notified when the ISS is above Mannheim.</p>
+            <p style="font-size: 16px;">Best regards,</p>
+            <p style="font-size: 16px; font-weight: bold;">German</p>
+            <p style="font-size: 12px; color: #888888;">(ISS Mannheim Newsletter)</p>
+        </div>
+        <div style="background-color: rgba(255, 255, 255, 0.8); color: #333333; padding: 10px; text-align: center; font-size: 12px;">
+            <p style="margin: 0;">Remove yourself from the Newsletter: <a href="https://iss-route.streamlit.app/ISS_Newsletter" style="color: #007BFF; text-decoration: none;">Unsubscribe</a></p>
+        </div>
+    </body>
+    </html>
+    """
     sender.send(to=email,
                 subject="The ISS Mannheim Newsletter 📍",
-                contents=
-                "Hey there,\n\nThanks for signing up to the newsletter.\nYou will be notified when the ISS is above Mannheim.\nBest regards\nGerman \n(ISS Mannheim Newsletter)\n\nRemove yourself from the Newsletter: https://iss-route.streamlit.app/ISS_Newsletter"
+                #contents=
+                #"Hey there,\n\nThanks for signing up to the newsletter.\nYou will be notified when the ISS is above Mannheim.\nBest regards\nGerman \n(ISS Mannheim Newsletter)\n\nRemove yourself from the Newsletter: https://iss-route.streamlit.app/ISS_Newsletter\n"+html_content
+                contents=html_content
                 )
     
 def add_email(tx, email):
