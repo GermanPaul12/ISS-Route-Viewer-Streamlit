@@ -1,0 +1,8 @@
+pandas
+streamlit
+flask
+yagmail
+plotly
+folium
+python-dotenv
+neo4j
