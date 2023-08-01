@@ -40,7 +40,7 @@ def is_iss_visible(time_str):
 st.title("🇩🇪 Germany Map with 📍 Locations and ⏰ Times")
 
 # Read the CSV file into a DataFrame
-data = pd.read_csv("https://raw.githubusercontent.com/GermanPaul12/ISS-Route-Viewer-Streamlit/main/Data/iss_data.csv", names=["lat","lon","time"])
+data = pd.read_csv("https://raw.githubusercontent.com/GermanPaul12/ISS-Over-Mannheim-Newsletter-on-Replit/main/iss_data.csv", names=["lat","lon","time"])
 
 # Display the first few rows of the data
 st.dataframe(data.head())
