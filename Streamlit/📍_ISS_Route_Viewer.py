@@ -6,7 +6,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 # Read csv and manipulate data to desired format
-url = 'https://raw.githubusercontent.com/GermanPaul12/ISS-Over-Mannheim-Newsletter-on-Replit/main/iss_data.csv'
+url = 'https://raw.githubusercontent.com/GermanPaul12/ISS-Over-Mannheim-Newsletter/main/Files/iss_data.csv'
 df = pd.read_csv(url, names=["lat", "lon", "time"])
 time_converter = lambda x: x[:-7]
 df.time = df.time.apply(time_converter)

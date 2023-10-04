@@ -31,6 +31,7 @@ def save_email_to_database(email):
 
     sender = yagmail.SMTP(GMAIL_MAIL, GMAIL_PW)
     # URL of the ISS image (Replace with the actual URL of the ISS image)
+    # https://raw.githubusercontent.com/GermanPaul12/ISS-Over-Mannheim-Newsletter/main/Files/iss_data.csv
     iss_image_url = "https://raw.githubusercontent.com/GermanPaul12/ISS-Route-Viewer-Streamlit/main/Data/iss.jpg"
 
     # Create the HTML content for the email

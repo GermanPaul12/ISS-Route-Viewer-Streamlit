@@ -6,7 +6,7 @@ import pydeck as pdk
 st.title("Germany Map 🇩🇪 with White Points ⚪️ of the ISS 📍")
 
 # Read the CSV file into a DataFrame
-data = pd.read_csv("https://raw.githubusercontent.com/GermanPaul12/ISS-Over-Mannheim-Newsletter-on-Replit/main/iss_data.csv", names=["lat","lon","time"])
+data = pd.read_csv("https://raw.githubusercontent.com/GermanPaul12/ISS-Over-Mannheim-Newsletter/main/Files/iss_data.csv", names=["lat","lon","time"])
 
 # Option to choose how many rows to show on the map from the bottom
 num_rows_to_show = st.slider("Show last days", min_value=1, max_value=len(data), value=10)
